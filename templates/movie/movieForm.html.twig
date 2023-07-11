@@ -1,0 +1,16 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ editMode }} movie - {{ parent()}}{% endblock %}
+
+{% block body %}
+    <div class="row">
+        <div class="col-10 offset-1"></div>
+{#        novalidate prevents the browser from validating itself and blocking server-side validation (not resource #}
+{#        efficient#}
+            {{ form_start(movieForm, {attr:{novalidate:"novalidate"}}) }}
+            {{ form_widget(movieForm) }}
+            <button type="submit" class="btn btn-primary">Submit</button>
+            {{ form_end(movieForm) }}
+        </div>
+    </div>
+{% endblock %}

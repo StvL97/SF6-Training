@@ -1,17 +1,28 @@
 {% extends 'base.html.twig' %}
 
-{% block title %} {{ parent()}} - MyApplication{% endblock %}
+{% block title %} {{ parent() }} - MyApplication{% endblock %}
 
 {% block body %}
-<style>
-</style>
-
-<div class="movie-list">
-    <h2>Movies:</h2>
-    <ul>
-        {% for movie in movies %}
-            <li>{{ loop.index }}. {{ movie }}</li>
-        {% endfor %}
-    </ul>
-</div>
+    <div class="movie-list">
+        <a href="{{ path('app_movie_create') }}">Create new</a>
+        <h2>Movies:</h2>
+        <ul>
+            {% for movie in movies %}
+                <li>
+                    {{ loop.index }}.
+                    <a href="detail/{{ movie.id }}">
+                        {{ movie.title }}
+                    </a>
+                    (
+                    {% for genre in movie.genres %}
+                        {% if loop.last == false %}
+                            ,
+                        {% endif %}
+                        {{ genre.name }}
+                    {% endfor %}
+                    )
+                </li>
+            {% endfor %}
+        </ul>
+    </div>
 {% endblock %}

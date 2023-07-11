@@ -1,0 +1,29 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} Movie Detail - {{ parent()}}{% endblock %}
+
+{% block body %}
+    <style>
+        td {
+            border: 1px solid black;
+            padding: 2px;
+        }
+    </style>
+
+
+    <div class="row">
+        <div class="movie-detail col-6 offset-1">
+            <h2>{{ movie.title }}</h2>
+            <table>
+                <tr>
+                    <td>Plot</td>
+                    <td>{{ movie.plot }}</td>
+                </tr>
+                <tr>
+                    <td>Release Date</td>
+                    <td>{{ movie.releasedAt|date()}}</td>
+                </tr>
+            </table>
+        </div>
+    </div>
+{% endblock %}
