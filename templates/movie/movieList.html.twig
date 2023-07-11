@@ -1,0 +1,17 @@
+{% extends 'base.html.twig' %}
+
+{% block title %} {{ parent()}} - MyApplication{% endblock %}
+
+{% block body %}
+<style>
+</style>
+
+<div class="movie-list">
+    <h2>Movies:</h2>
+    <ul>
+        {% for movie in movies %}
+            <li>{{ loop.index }}. {{ movie }}</li>
+        {% endfor %}
+    </ul>
+</div>
+{% endblock %}
