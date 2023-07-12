@@ -2,12 +2,10 @@
 
 namespace App\Controller;
 
-use App\Entity\Movie;
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
-use DateTime;
+use App\Service\OmdbGateway;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
-use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
 use Symfony\Component\Routing\Annotation\Route;
@@ -26,12 +24,17 @@ class MovieController extends AbstractController
     }
 
     #[Route('detail/{id}', name: 'detail', requirements: ['id' => '\d+'])]
-    public function detail(int $id, MovieRepository $movieRepository): Response
+    public function detail(int $id, MovieRepository $movieRepository, OmdbGateway $gateway): Response
     {
         $movie = $movieRepository->find($id);
 
+        $poster = 'https://tse4.mm.bing.net/th?id=OIP.xi6JCjV8lRzq4_FX6z5McwHaK-&pid=Api';
+        $poster = $gateway->getPoster();
+
+
         return $this->render('movie/movieDetail.html.twig', [
-            'movie' => $movie
+            'movie' => $movie,
+            'poster' => $poster
         ]);
     }
 

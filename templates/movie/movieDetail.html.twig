@@ -10,7 +10,6 @@
         }
     </style>
 
-
     <div class="row">
         <div class="movie-detail col-6 offset-1">
             <h2>{{ movie.title }}</h2>
@@ -24,6 +23,7 @@
                     <td class="movie-released-at">{{ movie.releasedAt|date()}}</td>
                 </tr>
             </table>
+            <img src="{{ poster }}">
         </div>
     </div>
 {% endblock %}
