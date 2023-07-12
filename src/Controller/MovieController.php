@@ -28,7 +28,7 @@ class MovieController extends AbstractController
     {
         $movie = $movieRepository->find($id);
 
-        $poster = $gateway->getPoster($movie->getTitle());
+        $poster = $gateway->getPoster($movie);
 
         return $this->render('movie/movieDetail.html.twig', [
             'movie' => $movie,

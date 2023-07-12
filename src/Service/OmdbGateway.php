@@ -2,6 +2,7 @@
 
 namespace App\Service;
 
+use App\Entity\Movie;
 use Symfony\Contracts\HttpClient\HttpClientInterface;
 
 class OmdbGateway
@@ -13,13 +14,13 @@ class OmdbGateway
     ) {
     }
 
-    public function getPoster(string $title): string
+    public function getPoster(Movie $movie): string
     {
         $url = sprintf(
             '%s?apikey=%s&t=%s',
             $this->movieApi,
             $this->movieApiKey,
-            $title
+            $movie->getTitle()
         );
 
         $response = $this->httpClient->request('GET', $url);
