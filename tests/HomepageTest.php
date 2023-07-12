@@ -25,7 +25,6 @@ class HomepageTest extends WebTestCase
 
         $this->assertResponseIsSuccessful();
         $this->assertSelectorTextContains('h1', 'Hello ' . $expectedName);
-
     }
 
     public function testHelloPageIsNotFoundWhenNameIsNotGiven(): void
