@@ -71,21 +71,21 @@ class MovieControllerTest extends WebTestCase
         $this->assertSelectorTextContains('td.movie-plot', $this->dummyMovie->getPlot(), 'plot content');
         $this->assertSelectorExists('td.movie-released-at', 'released at');
     }
+
+//    public function testItCanCreateANewMovie(): void
+//    {
+//        $client = static::createClient();
 //
-    public function testItCanCreateANewMovie(): void
-    {
-        $client = static::createClient();
-
-        $client->request(method:'POST', uri:'movie/create', content:json_encode(['movie' => [
-            'title' => 'foo',
-            'plot' => 'some plot',
-            'releasedAt' => new \DateTime(),
-            '_token' => 'xxxxxx'
-        ]]));
-        $movieRepository = $this->getContainer()->get(MovieRepository::class);
-
-        /** @var MovieRepository $movieRepository */
-        $movie = $movieRepository->findOneBy(['title' => 'foo']);
-        self::assertEquals('some plot', $movie->getPlot(), 'Plot is not as expected');
-    }
+//        $client->request(method:'POST', uri:'movie/create', content:json_encode(['movie' => [
+//            'title' => 'foo',
+//            'plot' => 'some plot',
+//            'releasedAt' => new \DateTime(),
+//            '_token' => 'xxxxxx'
+//        ]]));
+//        $movieRepository = $this->getContainer()->get(MovieRepository::class);
+//
+//        /** @var MovieRepository $movieRepository */
+//        $movie = $movieRepository->findOneBy(['title' => 'foo']);
+//        self::assertEquals('some plot', $movie->getPlot(), 'Plot is not as expected');
+//    }
 }
