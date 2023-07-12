@@ -23,7 +23,9 @@
                     <td class="movie-released-at">{{ movie.releasedAt|date()}}</td>
                 </tr>
             </table>
-            <img src="{{ poster }}">
+            {% if poster is not empty %}
+                <img src="{{ poster }}">
+            {% endif %}
         </div>
     </div>
 {% endblock %}

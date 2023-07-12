@@ -28,9 +28,7 @@ class MovieController extends AbstractController
     {
         $movie = $movieRepository->find($id);
 
-        $poster = 'https://tse4.mm.bing.net/th?id=OIP.xi6JCjV8lRzq4_FX6z5McwHaK-&pid=Api';
-        $poster = $gateway->getPoster();
-
+        $poster = $gateway->getPoster($movie->getTitle());
 
         return $this->render('movie/movieDetail.html.twig', [
             'movie' => $movie,
