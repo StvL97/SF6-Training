@@ -3,3 +3,27 @@
 body {
     background-color: #ccffcc;
 }
+
+.movie-list {
+    table {
+        font-size: 1.2rem;
+        border: 1px solid black;
+        border-collapse: collapse;
+        width: 100%;
+
+        thead {
+            text-align: center;
+            border-bottom: 2px solid black;
+        }
+
+        td {
+            padding: 2px;
+            border-right: 1px solid black;
+
+            &:first-of-type {
+                text-align: right !important;
+                padding-right: 2px;
+            }
+        }
+    }
+}

@@ -3,26 +3,38 @@
 {% block title %} {{ parent() }} - MyApplication{% endblock %}
 
 {% block body %}
-    <div class="movie-list">
-        <a href="{{ path('app_movie_create') }}">Create new</a>
-        <h2>Movies:</h2>
-        <ul>
-            {% for movie in movies %}
-                <li>
-                    {{ loop.index }}.
-                    <a href="detail/{{ movie.id }}">
-                        {{ movie.title }}
-                    </a>
-                    (
-                    {% for genre in movie.genres %}
-                        {% if loop.last == false %}
-                            ,
-                        {% endif %}
-                        {{ genre.name }}
-                    {% endfor %}
-                    )
-                </li>
-            {% endfor %}
-        </ul>
+    <div class="row">
+        <div class="movie-list col-4 offset-4">
+            <h2>Movies:</h2>
+            <table>
+                <thead>
+                <tr>
+                    <th>Number</th>
+                    <th>Title</th>
+                    <th>Genres</th>
+                </tr>
+                </thead>
+                {% for movie in movies %}
+                    <tr>
+                        <td>{{ loop.index }}</td>
+                        <td>
+                            <a href="detail/{{ movie.id }}">
+                                {{ movie.title }}
+                            </a>
+                        </td>
+                        <td>
+                            {% for genre in movie.genres %}
+                                {{ genre.name}}{% if loop.last == false %},{% endif %}
+                            {% endfor %}
+                        </td>
+                    </tr>
+                {% endfor %}
+            </table>
+        </div>
+        <div class="col">
+            <br><br>
+            <a href="{{ path('app_movie_create') }}" class="btn btn-primary">Create new</a>
+        </div>
     </div>
+
 {% endblock %}
