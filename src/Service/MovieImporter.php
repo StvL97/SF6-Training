@@ -62,7 +62,7 @@ class MovieImporter
         return $movie;
     }
 
-    private function getGenre(string $name): Genre
+    protected function getGenre(string $name): Genre
     {
         $name = trim(strtolower($name));
         $genre = $this->genreRepository->findOneBy(['name' => $name]);
