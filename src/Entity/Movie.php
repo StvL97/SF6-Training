@@ -8,7 +8,6 @@ use Doctrine\Common\Collections\Collection;
 use Doctrine\DBAL\Types\Types;
 use Doctrine\ORM\Mapping as ORM;
 use Symfony\Component\Validator\Constraints as Assert;
-use Symfony\Component\Validator\Context\ExecutionContextFactory;
 use Symfony\Component\Validator\Context\ExecutionContextInterface;
 
 #[ORM\Entity(repositoryClass: MovieRepository::class)]
@@ -32,6 +31,9 @@ class Movie
 
     #[ORM\ManyToMany(targetEntity: Genre::class, mappedBy: 'movies')]
     private Collection $genres;
+
+    #[ORM\ManyToOne(inversedBy: 'movies')]
+    private ?User $createdBy = null;
 
     public function __construct()
     {
@@ -118,5 +120,17 @@ class Movie
                  ->addViolation();
             }
         }
+    }
+
+    public function getCreatedBy(): ?User
+    {
+        return $this->createdBy;
+    }
+
+    public function setCreatedBy(?User $createdBy): static
+    {
+        $this->createdBy = $createdBy;
+
+        return $this;
     }
 }

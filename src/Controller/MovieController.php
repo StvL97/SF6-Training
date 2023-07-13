@@ -2,14 +2,18 @@
 
 namespace App\Controller;
 
+use App\Entity\Movie;
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
 use App\Service\MovieImporter;
 use App\Service\OmdbGateway;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
+use Symfony\Component\HttpFoundation\RedirectResponse;
 use Symfony\Component\HttpFoundation\Request;
 use Symfony\Component\HttpFoundation\Response;
+use Symfony\Component\HttpKernel\Exception\AccessDeniedHttpException;
 use Symfony\Component\Routing\Annotation\Route;
+use Symfony\Component\Security\Http\Attribute\IsGranted;
 
 #[Route('movie/', name:'app_movie_')]
 class MovieController extends AbstractController
@@ -56,12 +60,15 @@ class MovieController extends AbstractController
     }
 
     #[Route('create', name:'create')]
-    public function create(Request $request, MovieRepository $movieRepository)
+    #[IsGranted('IS_AUTHENTICATED_FULLY')]
+    public function create(Request $request, MovieRepository $movieRepository): Response
     {
         $form = $this->createForm(MovieType::class);
         $form->handleRequest($request);
         if ($form->isSubmitted() && $form->isValid()) {
+            /** @var Movie $movie */
             $movie = $form->getData();
+            $movie->setCreatedBy($this->getUser());
             $movieRepository->save($movie, true);
 
             $this->addFlash('success', 'Movie has been created');
@@ -72,5 +79,17 @@ class MovieController extends AbstractController
             'editMode' => 'Create',
             'movieForm' => $form
         ]);
+    }
+
+    #[Route('delete/{movie}', name: 'delete')]
+    #[IsGranted('remove', 'movie')]
+    public function delete(Movie $movie, MovieRepository $repository): Response
+    {
+        $title = $movie->getTitle();
+        $repository->remove($movie, true);
+
+        $this->addFlash('success', "Movie deleted: " . $title);
+
+        return new RedirectResponse('/movie/list');
     }
 }

@@ -27,6 +27,14 @@
                                 {{ genre.name}}{% if loop.last == false %},{% endif %}
                             {% endfor %}
                         </td>
+                        {% if is_granted('remove', movie) %}
+                        <td>
+                            <a href="{{ path('app_movie_delete', { 'movie': movie.id}) }}" class="btn
+                            btn-danger">
+                                Delete
+                            </a>
+                        </td>
+                        {% endif %}
                     </tr>
                 {% endfor %}
             </table>

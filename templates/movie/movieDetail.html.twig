@@ -22,6 +22,10 @@
                     <td>Release Date</td>
                     <td class="movie-released-at">{{ movie.releasedAt|date()}}</td>
                 </tr>
+                <tr>
+                    <td>Created By</td>
+                    <td>{{ movie.createdBy.username }}</td>
+                </tr>
             </table>
             {% if poster is not empty %}
                 <img src="{{ poster }}">
