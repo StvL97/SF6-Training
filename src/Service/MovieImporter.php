@@ -28,6 +28,11 @@ class MovieImporter
 
     public function getMovieByTitle(string $title, $flushGenres = false): ?Movie
     {
+        if ($movie = $this->movieRepository->findOneBy(['title' => $title])) {
+            dump('found movie');
+            return $movie;
+        }
+
         $movieData = $this->gateway->getMovieDataByTitle($title);
 
         if (array_key_exists('error', $movieData)) {
