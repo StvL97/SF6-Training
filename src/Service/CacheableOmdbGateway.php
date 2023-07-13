@@ -9,8 +9,6 @@ use Symfony\Contracts\Cache\CacheInterface;
 #[AsDecorator(OmdbGateway::class, priority: 1)]
 class CacheableOmdbGateway extends OmdbGateway
 {
-    private bool $posterIsCached = false;
-
     public function __construct(
         private readonly OmdbGateway $omdbGateway,
         private readonly CacheInterface $cache
@@ -25,5 +23,9 @@ class CacheableOmdbGateway extends OmdbGateway
             $cacheKey,
             fn() => $this->omdbGateway->getPoster($movie)
         );
+    }
+
+    public function getMovieDataByTitle(string $title): array {
+        return $this->omdbGateway->getMovieDataByTitle($title);
     }
 }

@@ -4,6 +4,7 @@ namespace App\Controller;
 
 use App\Form\MovieType;
 use App\Repository\MovieRepository;
+use App\Service\MovieImporter;
 use App\Service\OmdbGateway;
 use Symfony\Bundle\FrameworkBundle\Controller\AbstractController;
 use Symfony\Component\HttpFoundation\Request;
@@ -28,6 +29,24 @@ class MovieController extends AbstractController
     {
         $movie = $movieRepository->find($id);
 
+        $poster = $gateway->getPoster($movie);
+
+        return $this->render('movie/movieDetail.html.twig', [
+            'movie' => $movie,
+            'poster' => $poster
+        ]);
+    }
+
+    /*
+     * Displays a movie like it would be saved in DB + poster, but without actually importing it.
+     */
+    #[Route('preview/{title}', name: 'preview', requirements: ['name' => '\w+'])]
+    public function preview(
+        string $title,
+        MovieImporter $importer,
+        OmdbGateway $gateway
+    ): Response {
+        $movie = $importer->getMovieByTitle($title);
         $poster = $gateway->getPoster($movie);
 
         return $this->render('movie/movieDetail.html.twig', [

@@ -32,4 +32,17 @@ class OmdbGateway
 
         return $movieData['Poster'];
     }
+
+    public function getMovieDataByTitle(string $title): array
+    {
+        $url = sprintf(
+            '%s?apikey=%s&t=%s',
+            $this->movieApi,
+            $this->movieApiKey,
+            $title
+        );
+
+        $response = $this->httpClient->request('GET', $url);
+        return json_decode($response->getContent(), true);
+    }
 }

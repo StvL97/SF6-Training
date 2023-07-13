@@ -23,4 +23,8 @@ class LoggableOmdbGateway extends OmdbGateway
 
         return $poster;
     }
+
+    public function getMovieDataByTitle(string $title): array {
+        return $this->omdbGateway->getMovieDataByTitle($title);
+    }
 }
