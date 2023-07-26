@@ -4,8 +4,6 @@ namespace App\Tests\Controller;
 
 use App\Entity\Movie;
 use App\Entity\User;
-use App\Form\MovieType;
-use App\Repository\MovieRepository;
 use Doctrine\Common\DataFixtures\AbstractFixture;
 use Doctrine\Common\DataFixtures\Executor\ORMExecutor;
 use Doctrine\Common\DataFixtures\Purger\ORMPurger;
